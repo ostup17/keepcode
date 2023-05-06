@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keepcode/check_session.dart';
+import 'package:keepcode/features/presentation/buy/cubit/buy_cubit.dart';
 import 'package:keepcode/features/presentation/services/cubit/services_cubit.dart';
 import 'package:keepcode/features/presentation/services/cubit/services_state.dart';
 import 'package:keepcode/features/widgets/my_error.dart';
 import 'package:keepcode/features/widgets/my_init.dart';
 import 'package:keepcode/features/widgets/my_loading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Services extends StatelessWidget {
   @override
@@ -44,7 +47,8 @@ class Services extends StatelessWidget {
                               }
                               return Center(
                                 child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
                                       ? loadingProgress.cumulativeBytesLoaded /
                                           loadingProgress.expectedTotalBytes!
                                       : null,
@@ -56,20 +60,36 @@ class Services extends StatelessWidget {
                         Text('${state.enValues[index]}'),
                         Column(
                           children: [
-                            Text('Total count - ${state.servicesModel[index].totalCount}'),
-                            Text('Mit price - ${state.servicesModel[index].minPrice}'),
-                            Text('Mit free price - ${state.servicesModel[index].minFreePrice}')
+                            Text(
+                                'Total count - ${state.servicesModel[index].totalCount}'),
+                            Text(
+                                'Mit price - ${state.servicesModel[index].minPrice}'),
+                            Text(
+                                'Mit free price - ${state.servicesModel[index].minFreePrice}')
                           ],
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async { 
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString(
+                                    'id', state.servicesModel[index].shortName);
+                            await context.read<BuyCubit>()
+                              .getInfoBuy(
+                                  state.servicesModel[index].shortName).whenComplete(() => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => CheckSession()),
+                                  ));
+                          },
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.green
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.green),
+                            child: Text(
+                              'Buy',
+                              style: TextStyle(color: Colors.white),
                             ),
-                            child: Text('Buy', style: TextStyle(color: Colors.white),),
                           ),
                         )
                       ],
