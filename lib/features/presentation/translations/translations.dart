@@ -6,6 +6,8 @@ import 'package:keepcode/features/widgets/my_error.dart';
 import 'package:keepcode/features/widgets/my_init.dart';
 import 'package:keepcode/features/widgets/my_loading.dart';
 
+import '../services/services.dart';
+
 class Translations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,7 @@ class Translations extends StatelessWidget {
           } else if (state is TranslationsLoading) {
             return MyLoading();
           } else if (state is TranslationsLoaded) {
-            return Center(
-              child: Text("Successful"),
-            );
+            return Services();
           } else if (state is TranslationsError) {
             return MyError();
           }
