@@ -1,4 +1,4 @@
-import 'package:keepcode/features/data/translations_model.dart';
+import 'package:keepcode/features/data/models/translations_model.dart';
 
 abstract class TranslationsState {}
 

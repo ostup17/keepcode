@@ -36,7 +36,7 @@ class CheckSession extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Buy()),
                             ));
                   },
-                  child: Text('123'),
+                  child: Text('Confirm'),
                 ),
               );
             }

@@ -9,13 +9,15 @@ import 'package:keepcode/features/widgets/my_init.dart';
 import 'package:keepcode/features/widgets/my_loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../data/save_db.dart';
+
 class Services extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         child: BlocBuilder<ServicesCubit, ServicesState>(
           builder: (context, state) {
             if (state is ServicesInit) {
@@ -27,8 +29,8 @@ class Services extends StatelessWidget {
                 itemCount: state.servicesModel.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(width: 1, color: Colors.black))),
                     child: Row(
@@ -57,36 +59,56 @@ class Services extends StatelessWidget {
                             },
                           ),
                         ),
-                        Text('${state.enValues[index]}'),
+                        FutureBuilder<String?>(
+                          // future: DatabaseHelper.searchEnValue('${state.servicesModel[index].shortName}_0'),
+                          future: DatabaseHelper.searchEnValue('tg_0'),
+
+                          builder: (ctx, snapshot) {
+                            if (snapshot.hasData) {
+                              Text(snapshot.data!);
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text(
+                                  '${snapshot.error} occurred',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              );
+                            }
+                            return const CircularProgressIndicator();
+                          },
+                        ),
                         Column(
                           children: [
                             Text(
                                 'Total count - ${state.servicesModel[index].totalCount}'),
                             Text(
-                                'Mit price - ${state.servicesModel[index].minPrice}'),
+                                'Min price - ${state.servicesModel[index].minPrice}'),
                             Text(
-                                'Mit free price - ${state.servicesModel[index].minFreePrice}')
+                                'Min free price - ${state.servicesModel[index].minFreePrice}')
                           ],
                         ),
                         InkWell(
-                          onTap: () async { 
-                          final prefs = await SharedPreferences.getInstance();
-                          await prefs.setString(
-                                    'id', state.servicesModel[index].shortName);
-                            await context.read<BuyCubit>()
-                              .getInfoBuy(
-                                  state.servicesModel[index].shortName).whenComplete(() => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => CheckSession()),
-                                  ));
+                          onTap: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString(
+                                'id', state.servicesModel[index].shortName);
+                            await context
+                                .read<BuyCubit>()
+                                .getInfoBuy(
+                                    state.servicesModel[index].shortName)
+                                .whenComplete(() => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CheckSession()),
+                                    ));
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: Colors.green),
-                            child: Text(
+                            child: const Text(
                               'Buy',
                               style: TextStyle(color: Colors.white),
                             ),

@@ -1,5 +1,5 @@
-import 'package:keepcode/features/data/buy_auth_model.dart';
-import 'package:keepcode/features/data/buy_model.dart';
+import 'package:keepcode/features/data/models/buy_error_mode.dart';
+import 'package:keepcode/features/data/models/buy_model.dart';
 
 abstract class BuyState {}
 
@@ -7,14 +7,15 @@ class BuyInit extends BuyState {}
 
 class BuyLoading extends BuyState {}
 
-class BuyNotAuth extends BuyState {
-  BuyNotAuth({required this.buyAuthModel});
-  final BuyAuthModel buyAuthModel;
-}
-
 class BuyLoaded extends BuyState {
-  BuyLoaded({required this.buyModel});
+  BuyLoaded({required this.buyModel, required this.activation});
   final BuyModel buyModel;
+  final List<String> activation;
 }
 
-class BuyError extends BuyState {}
+class BuyError extends BuyState {
+  BuyError({required this.buyErrorModel});
+  final BuyErrorModel buyErrorModel;
+}
+
+class BuyNumberIsBusy extends BuyState {}

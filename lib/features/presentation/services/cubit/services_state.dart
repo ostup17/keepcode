@@ -1,4 +1,4 @@
-import 'package:keepcode/features/data/services_model.dart';
+import 'package:keepcode/features/data/models/services_model.dart';
 
 abstract class ServicesState {}
 
@@ -7,9 +7,8 @@ class ServicesInit extends ServicesState {}
 class ServicesLoading extends ServicesState {}
 
 class ServicesLoaded extends ServicesState {
-  ServicesLoaded({required this.servicesModel, required this.enValues});
+  ServicesLoaded({required this.servicesModel});
   final List<ServicesModel> servicesModel;
-  final List<String> enValues;
 }
 
 class ServicesError extends ServicesState {}
