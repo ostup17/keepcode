@@ -60,9 +60,7 @@ class Services extends StatelessWidget {
                           ),
                         ),
                         FutureBuilder<String?>(
-                          // future: DatabaseHelper.searchEnValue('${state.servicesModel[index].shortName}_0'),
-                          future: DatabaseHelper.searchEnValue('tg_0'),
-
+                          future: DatabaseHelper.searchEnValue('${state.servicesModel[index].shortName}_0'),
                           builder: (ctx, snapshot) {
                             if (snapshot.hasData) {
                               Text(snapshot.data!);
