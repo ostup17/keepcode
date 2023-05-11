@@ -9,8 +9,8 @@ BuyErrorModel buyErrorModelFromJson(String str) => BuyErrorModel.fromJson(json.d
 String buyErrorModelToJson(BuyErrorModel data) => json.encode(data.toJson());
 
 class BuyErrorModel {
-    String status;
-    String error;
+    final String status;
+    final String error;
 
     BuyErrorModel({
         required this.status,

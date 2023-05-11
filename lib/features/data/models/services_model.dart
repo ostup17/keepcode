@@ -9,14 +9,14 @@ List<ServicesModel> servicesModelFromJson(String str) => List<ServicesModel>.fro
 String servicesModelToJson(List<ServicesModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ServicesModel {
-    String shortName;
-    int sellTop;
-    bool forward;
-    int totalCount;
-    double minPrice;
-    double minFreePrice;
-    int? countWithFreePrice;
-    bool onlyRent;
+    final String shortName;
+    final int sellTop;
+    final bool forward;
+    final int totalCount;
+    final double minPrice;
+    final double minFreePrice;
+    final int? countWithFreePrice;
+    final bool onlyRent;
 
     ServicesModel({
         required this.shortName,

@@ -25,15 +25,15 @@ class TranslationsModel {
 }
 
 class Operator {
-    Azerfon? azerfon;
-    Azerfon? humans;
-    Azerfon? mts;
-    Azerfon? mdc;
-    Azerfon? best;
-    Azerfon? life;
-    Azerfon? optus;
-    Azerfon? vodafone;
-    Azerfon? telstra;
+    final Azerfon? azerfon;
+    final Azerfon? humans;
+    final Azerfon? mts;
+    final Azerfon? mdc;
+    final Azerfon? best;
+    final Azerfon? life;
+    final Azerfon? optus;
+    final Azerfon? vodafone;
+    final Azerfon? telstra;
 
     Operator({
         this.azerfon,
@@ -73,9 +73,9 @@ class Operator {
 }
 
 class Azerfon {
-    String ru;
-    String en;
-    String cn;
+    final String ru;
+    final String en;
+    final String cn;
 
     Azerfon({
         required this.ru,

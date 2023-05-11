@@ -9,11 +9,11 @@ BuyModel buyModelFromJson(String str) => BuyModel.fromJson(json.decode(str));
 String buyModelToJson(BuyModel data) => json.encode(data.toJson());
 
 class BuyModel {
-    String status;
-    String activation;
-    String phone;
-    int timeStart;
-    int timeEnd;
+    final String status;
+    final String activation;
+    final String phone;
+    final int timeStart;
+    final int timeEnd;
 
     BuyModel({
         required this.status,
